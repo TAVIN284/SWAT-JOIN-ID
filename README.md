@@ -1,83 +1,49 @@
-local Players = game:GetService("Players")
-local TeleportService = game:GetService("TeleportService")
-local LocalPlayer = Players.LocalPlayer
-local StarterGui = game:GetService("StarterGui")
-
--- Cria a GUI
-local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "JobIDTeleportGUI"
-ScreenGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
-
-local MainFrame = Instance.new("Frame")
-MainFrame.Size = UDim2.new(0, 350, 0, 150)
-MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
-MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
-MainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
-MainFrame.Parent = ScreenGui
-
-local UICorner = Instance.new("UICorner", MainFrame)
-UICorner.CornerRadius = UDim.new(0, 15)
-
-local TitleLabel = Instance.new("TextLabel")
-TitleLabel.Size = UDim2.new(1, 0, 0, 40)
-TitleLabel.Position = UDim2.new(0, 0, 0, 0)
-TitleLabel.Text = "Entrar por Job ID"
-TitleLabel.TextColor3 = Color3.fromRGB(0, 255, 255)
-TitleLabel.Font = Enum.Font.GothamBold
-TitleLabel.TextSize = 22
-TitleLabel.BackgroundTransparency = 1
-TitleLabel.Parent = MainFrame
-
-local JobIdBox = Instance.new("TextBox")
-JobIdBox.Size = UDim2.new(0, 300, 0, 40)
-JobIdBox.Position = UDim2.new(0, 25, 0, 50)
-JobIdBox.PlaceholderText = "Coloque o Job ID aqui"
-JobIdBox.Text = ""
-JobIdBox.ClearTextOnFocus = false
-JobIdBox.BackgroundColor3 = Color3.fromRGB(50, 50, 60)
-JobIdBox.TextColor3 = Color3.fromRGB(0, 255, 255)
-JobIdBox.Font = Enum.Font.Gotham
-JobIdBox.TextSize = 18
-JobIdBox.Parent = MainFrame
-
-local EnterButton = Instance.new("TextButton")
-EnterButton.Size = UDim2.new(0, 100, 0, 40)
-EnterButton.Position = UDim2.new(0.5, -50, 0, 100)
-EnterButton.Text = "Entrar"
-EnterButton.BackgroundColor3 = Color3.fromRGB(0, 210, 255)
-EnterButton.TextColor3 = Color3.fromRGB(20, 20, 25)
-EnterButton.Font = Enum.Font.GothamBold
-EnterButton.TextSize = 22
-EnterButton.Parent = MainFrame
-
-local UICornerBtn = Instance.new("UICorner", EnterButton)
-UICornerBtn.CornerRadius = UDim.new(0, 12)
-
--- Função para mostrar aviso
-local function showMessage(msg)
-    StarterGui:SetCore("SendNotification", {
-        Title = "Job ID Teleport";
-        Text = msg;
-        Duration = 3;
-    })
-end
-
--- Função para entrar no servidor
-EnterButton.MouseButton1Click:Connect(function()
-    local jobId = JobIdBox.Text:gsub("%s+", "") -- remove espaços extras
-    if jobId == "" then
-        showMessage("Digite um Job ID válido!")
-        return
-    end
-
-    local placeId = game.PlaceId
-    showMessage("Tentando entrar no servidor...")
-
-    local success, err = pcall(function()
-        TeleportService:TeleportToPlaceInstance(placeId, jobId, LocalPlayer)
-    end)
-
-    if not success then
-        showMessage("Falha ao entrar: " .. tostring(err))
-    end
+loadstring([[
+local a=game:GetService("Players").LocalPlayer
+local b=game:GetService("TeleportService")
+local c=game:GetService("StarterGui")
+local d=Instance.new("ScreenGui",a:WaitForChild("PlayerGui"))
+d.Name="JobIDTeleportGUI"
+local e=Instance.new("Frame",d)
+e.Size=UDim2.new(0,350,0,150)
+e.Position=UDim2.new(0.5,0,0.5,0)
+e.AnchorPoint=Vector2.new(0.5,0.5)
+e.BackgroundColor3=Color3.fromRGB(30,30,40)
+Instance.new("UICorner",e).CornerRadius=UDim.new(0,15)
+local f=Instance.new("TextLabel",e)
+f.Size=UDim2.new(1,0,0,40)
+f.Position=UDim2.new(0,0,0,0)
+f.Text="Entrar por Job ID"
+f.TextColor3=Color3.fromRGB(0,255,255)
+f.Font=Enum.Font.GothamBold
+f.TextSize=22
+f.BackgroundTransparency=1
+local g=Instance.new("TextBox",e)
+g.Size=UDim2.new(0,300,0,40)
+g.Position=UDim2.new(0,25,0,50)
+g.PlaceholderText="Coloque o Job ID aqui"
+g.Text=""
+g.ClearTextOnFocus=false
+g.BackgroundColor3=Color3.fromRGB(50,50,60)
+g.TextColor3=Color3.fromRGB(0,255,255)
+g.Font=Enum.Font.Gotham
+g.TextSize=18
+local h=Instance.new("TextButton",e)
+h.Size=UDim2.new(0,100,0,40)
+h.Position=UDim2.new(0.5,-50,0,100)
+h.Text="Entrar"
+h.BackgroundColor3=Color3.fromRGB(0,210,255)
+h.TextColor3=Color3.fromRGB(20,20,25)
+h.Font=Enum.Font.GothamBold
+h.TextSize=22
+Instance.new("UICorner",h).CornerRadius=UDim.new(0,12)
+local function i(j)local k={Title="Job ID Teleport",Text=j,Duration=3}c:SetCore("SendNotification",k)end
+h.MouseButton1Click:Connect(function()
+local l=g.Text:gsub("%s+","")
+if l==""then i("Digite um Job ID válido!")return end
+local m=game.PlaceId
+i("Tentando entrar no servidor...")
+local n,o=pcall(function()b:TeleportToPlaceInstance(m,l,a)end)
+if not n then i("Falha ao entrar: "..tostring(o))end
 end)
+]])()
